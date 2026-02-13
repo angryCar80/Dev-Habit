@@ -1,53 +1,80 @@
-# Saas App
+# DevHabit
 
-## The Solution
-A habit tracker specifically for developers that tracks:
-- Daily coding streaks (via GitHub API integration)
-- Learning goals (complete X tutorials, read Y docs)
-- Side project progress
-- LeetCode/algorithm practice
-- Tech stack exploration
+<p align="center">
+  <img src="public/preview.png" alt="DevHabit Preview" width="800" />
+</p>
 
-## Key Features:
-1. **GitHub Integration** - Auto-sync commits, PRs, issues
-2. **Streak Tracking** - Visual heatmap like GitHub
-3. **Goals System** - Set weekly/monthly coding goals
-4. **Learning Paths** - Curated tracks for different technologies
-5. **Stats Dashboard** - Code time, languages used, productivity trends
-6. **Community** - Share progress, compete on leaderboards
+A modern web application to help developers build and maintain better coding habits through streak tracking, analytics, and goal setting.
 
-## Monetization:
-- Free: Basic tracking, 3 goals
-- Pro ($9/mo): Unlimited goals, advanced analytics, API access, private projects
-- Team ($29/mo): Team dashboards, coding challenges, progress reports
+## Features
 
+- **Streak Tracking** - Never break the chain. Keep your daily coding streak alive with visual heatmaps.
+- **Analytics** - Track your progress with detailed insights and stats.
+- **Goals** - Set and achieve your coding goals step by step.
 
-### GOAL!
-┌─────────────────────────────────────────────────────┐
-│  ⚡ DEVHABIT                   [🔥 47] [👤 Profile] │
-├─────────────────────────────────────────────────────┤
-│                                                     │
-│  ┌─────────────────────────────────────────────┐    │
-│  │  🔥 CURRENT STREAK                          │    │
-│  │  ┌─┬─┬─┬─┬─┬─┬─┐  ┌─┬─┬─┬─┬─┬─┬─┐           │    │
-│  │  │M│T│W│T│F│S│S│  │M│T│W│T│F│S│S│  47 days  │    │
-│  │  │█│█│█│█│█│░│█│  │█│█│█│█│█│█│█│           │    │
-│  │  └─┴─┴─┴─┴─┴─┴─┘  └─┴─┴─┴─┴─┴─┴─┘           │    │
-│  └─────────────────────────────────────────────┘    │
-│                                                     │
-│  ┌─────────────────┐  ┌─────────────────────────┐   │
-│  │ 📊 TODAY'S STATS│  │ 🎯 ACTIVE GOALS         │   │
-│  │                 │  │                         │   │
-│  │  Commits: 12    │  │ ▓▓▓▓▓░░░░░ Learn Rust   │   │
-│  │  PRs: 3         │  │ ▓▓▓░░░░░░░ 100 LeetCode │   │
-│  │  Hours: 4.5     │  │ ▓▓▓▓▓▓▓░░░ Side Project │   │
-│  │  Streak: 🔥 47  │  │                         │   │
-│  └─────────────────┘  └─────────────────────────┘   │
-│                                                     │
-│  ┌─────────────────────────────────────────────┐    │
-│  │ 📈 WEEKLY ACTIVITY                          │    │
-│  │    ▁ ▂ ▃ ▇ ▆ ▃ ▁                            │    │
-│  │    M T W T F S S                            │    │
-│  └─────────────────────────────────────────────┘    │
-│                                                     │
-└─────────────────────────────────────────────────────┘
+## Tech Stack
+
+- **Framework:** Next.js 16
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS v4
+- **Runtime:** React 19
+- **Package Manager:** Bun
+
+## Getting Started
+
+### Prerequisites
+
+- Bun installed on your machine
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/devhabit.git
+cd devhabit
+```
+
+2. Install dependencies:
+```bash
+bun install
+```
+
+3. Run the development server:
+```bash
+bun dev
+```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Scripts
+
+- `bun dev` - Start the development server
+- `bun build` - Build the production application
+- `bun start` - Start the production server
+- `bun lint` - Run ESLint
+
+## Project Structure
+
+```
+devhabit/
+├── app/                 # Next.js app directory
+│   ├── components/      # Reusable components
+│   │   └── layout/      # Layout components (Navbar, MainLayout)
+│   ├── dashboard/       # Dashboard page
+│   ├── pricing/         # Pricing page
+│   ├── settings/        # Settings page
+│   ├── layout.tsx       # Root layout
+│   └── page.tsx         # Home page
+├── public/              # Static assets
+│   └── preview.png      # App preview image
+├── package.json         # Dependencies and scripts
+└── next.config.ts       # Next.js configuration
+```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
