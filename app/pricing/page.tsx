@@ -1,7 +1,19 @@
+"use client"
+
+import { useRouter } from "next/navigation";
+
 export default function Pricing() {
+  const routes = useRouter();
+
+  const goToPricing = () => {
+    routes.push(
+      "pricing"
+    );
+  }
+
   const features = {
     free: [
-      "Track your coding streak",
+      "Trackrouterrouter your coding streak",
       "Unlimited tasks",
       "AI Help (5 days/month)",
       "Basic analytics",

@@ -1,6 +1,20 @@
+"use client"
+
+import { useRouter } from "next/navigation";
 import "./globals.css";
 
 export default function Home() {
+  const routes = useRouter();
+
+  const goToDashboard = () => {
+    routes.push("/dashboard");
+  };
+
+
+  const goToPricing = () => {
+    routes.push("/pricing");
+  };
+
   return (
     <main className="min-h-screen px-6 py-12">
       {/* App Logo */}
@@ -43,6 +57,19 @@ export default function Home() {
           </h3>
           <p className="text-muted text-sm">Set and achieve your coding goals step by step.</p>
         </div>
+      </div>
+
+      <div className="flex justify-center mt-10 ">
+        <button
+          onClick={goToPricing}
+          className="w-50 h-12 mr-10 mt-10 bg-accent text-on-accent font-semibold rounded-full glow-primary cursor-pointer"
+        >Start Your Streak</button>
+        <button
+          onClick={goToDashboard}
+          className="w-50 h-12 bg-surface mt-10 font-semibold rounded-full cursor-pointer"
+        >
+          Show Demo
+        </button>
       </div>
     </main>
   );
