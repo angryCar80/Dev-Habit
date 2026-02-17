@@ -2,17 +2,24 @@
 
 import { useState } from "react";
 
+type Goal = {
+  id: number;
+  title: string;
+  progress: number;
+  target: string;
+};
+
 export default function Dashboard() {
-  const [goals, setGoals] = useState([
+  const [goals, setGoals] = useState<Goal[]>([
     { id: 1, title: "Code Daily", progress: 85, target: "30 min/day" },
     { id: 2, title: "Complete Projects", progress: 60, target: "2 projects" },
     { id: 3, title: "Learn New Skills", progress: 45, target: "1 new language" },
   ]);
 
-  const [editingId, setEditingId] = useState(null);
+  const [editingId, setEditingId] = useState<number | null>(null);
   const [formData, setFormData] = useState({ title: "", target: "" });
 
-  const openEdit = (goal) => {
+  const openEdit = (goal: Goal) => {
     setEditingId(goal.id);
     setFormData({ title: goal.title, target: goal.target });
   };
