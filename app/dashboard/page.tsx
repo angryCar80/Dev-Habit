@@ -1,8 +1,38 @@
 "use client"
 
-import PopupEdit from "./components/popup";
+import { useState } from "react";
 
 export default function Dashboard() {
+  const [goals, setGoals] = useState([
+    { id: 1, title: "Code Daily", progress: 85, target: "30 min/day" },
+    { id: 2, title: "Complete Projects", progress: 60, target: "2 projects" },
+    { id: 3, title: "Learn New Skills", progress: 45, target: "1 new language" },
+  ]);
+
+  const [editingId, setEditingId] = useState(null);
+  const [formData, setFormData] = useState({ title: "", target: "" });
+
+  const openEdit = (goal) => {
+    setEditingId(goal.id);
+    setFormData({ title: goal.title, target: goal.target });
+  };
+
+  const closeEdit = () => {
+    setEditingId(null);
+    setFormData({ title: "", target: "" });
+  };
+
+  const saveGoal = () => {
+    setGoals(
+      goals.map((g) =>
+        g.id === editingId
+          ? { ...g, title: formData.title, target: formData.target }
+          : g
+      )
+    );
+    closeEdit();
+  };
+
   const stats = [
     { label: "Current Streak", value: "42", icon: "🔥", color: "accent" },
     { label: "Total Days", value: "127", icon: "📅", color: "primary" },
@@ -12,16 +42,6 @@ export default function Dashboard() {
 
   const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   const thisWeek = [1, 1, 1, 1, 1, 0, 0];
-
-  const goals = [
-    { title: "Code Daily", progress: 85, target: "30 min/day" },
-    { title: "Complete Projects", progress: 60, target: "2 projects" },
-    { title: "Learn New Skills", progress: 45, target: "1 new language" },
-  ];
-
-  const editPopUp = () => {
-    <PopupEdit />
-  }
 
   return (
     <main className="min-h-screen px-6 py-12">
@@ -99,19 +119,27 @@ export default function Dashboard() {
         <div className="bg-surface p-6 rounded-xl border border-subtle">
           <h2 className="text-xl font-bold text-primary mb-6">Active Goals</h2>
           <div className="space-y-6">
-            {goals.map((goal, idx) => (
-              <div key={idx}>
-                <div className="flex justify-between items-center mb-2">
-                  <p className="text-secondary font-medium">{goal.title}</p>
-                  <p className="text-xs text-muted">{goal.progress}%</p>
+            {goals.map((goal) => (
+              <div key={goal.id}>
+                <div className="flex justify-between items-center mb-2 gap-2">
+                  <p className="text-secondary font-medium text-sm flex-1 truncate">{goal.title}</p>
+                  <button
+                    onClick={() => openEdit(goal)}
+                    className="text-xs text-accent hover:text-primary transition-colors cursor-pointer flex-shrink-0"
+                  >
+                    ✏️
+                  </button>
                 </div>
-                <div className="w-full h-2 bg-subtle rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-accent transition-all duration-300 rounded-full"
-                    style={{ width: `${goal.progress}%` }}
-                  />
+                <div className="flex justify-between items-center gap-2 mb-2">
+                  <div className="flex-1 h-2 bg-subtle rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-accent transition-all duration-300 rounded-full"
+                      style={{ width: `${goal.progress}%` }}
+                    />
+                  </div>
+                  <p className="text-xs text-muted flex-shrink-0 w-8 text-right">{goal.progress}%</p>
                 </div>
-                <p className="text-xs text-muted mt-2">{goal.target}</p>
+                <p className="text-xs text-muted truncate">{goal.target}</p>
               </div>
             ))}
           </div>
@@ -119,12 +147,64 @@ export default function Dashboard() {
           <button className="w-full mt-8 py-3 bg-accent text-on-accent font-semibold rounded-lg hover:opacity-90 transition-opacity cursor-pointer">
             Log Session
           </button>
-
-          <button className="w-full mt-8 py-3 bg-accent text-on-accent font-semibold rounded-lg hover:opacity-90 transition-opacity cursor-pointer" onClick={editPopUp}>
-            Edit
-          </button>
         </div>
       </div>
+
+      {/* Edit Modal */}
+      {editingId && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+          <div className="bg-surface border border-subtle rounded-xl p-6 w-full max-w-md">
+            <h3 className="text-xl font-bold text-primary mb-4">Edit Goal</h3>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-secondary mb-2">
+                  Goal Title
+                </label>
+                <input
+                  type="text"
+                  value={formData.title}
+                  onChange={(e) =>
+                    setFormData({ ...formData, title: e.target.value })
+                  }
+                  className="w-full px-3 py-2 bg-subtle border border-muted rounded-lg text-primary focus:outline-none focus:border-accent"
+                  placeholder="e.g., Code Daily"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-secondary mb-2">
+                  Target
+                </label>
+                <input
+                  type="text"
+                  value={formData.target}
+                  onChange={(e) =>
+                    setFormData({ ...formData, target: e.target.value })
+                  }
+                  className="w-full px-3 py-2 bg-subtle border border-muted rounded-lg text-primary focus:outline-none focus:border-accent"
+                  placeholder="e.g., 30 min/day"
+                />
+              </div>
+            </div>
+
+            <div className="flex gap-3 mt-6">
+              <button
+                onClick={saveGoal}
+                className="flex-1 py-2 bg-accent text-on-accent font-semibold rounded-lg hover:opacity-90 transition-opacity cursor-pointer"
+              >
+                Save
+              </button>
+              <button
+                onClick={closeEdit}
+                className="flex-1 py-2 bg-subtle text-secondary font-semibold rounded-lg hover:border-accent border border-muted transition-all cursor-pointer"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
